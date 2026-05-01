@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apartma-Belchi</title>
+
+  <style>
+	/* Reset */
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body{
+      line-height: 1.6;
+    }
+
+    /* FixedBanner */
+    .banner{
+      top: 0;
+      width: 100%;
+      min-height: 250px; /* flexible instead of fixed */
+	  
+	  /* background-image: linear-gradient(180deg, rgba(255,0,0,1), rgba(255,0,0,0)); */
+      /* background: url('https://picsum.photos/1200/400') no-repeat center/cover; */
+	  
+	  /* background: linear-gradient(180deg, rgba(255,255,255,0) 40%, rgba(255,255,255,1)), url("stran/kpi.jpg") no-repeat center/cover; */
+	  /* background-size: cover; */
+	  background-size: 100%;
+	  background-position: center;
+	  background-repeat: no-repeat;
+      
+	  display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      color: white;
+      z-index: 1000;
+    }
+	
+	@media (max-width: 600px) {
+	.banner{
+		background-size: cover;
+		}
+	}
+
+    .banner h1{
+	  padding-left: 2%;
+	  font-size: 55px;
+	  font-family: Georgia;
+	  font-style: italic;
+	  -webkit-text-stroke: 2px black;
+	  color: white;
+    }
+	
+	@media (max-width: 600px) {
+	.banner h1 {
+		font-size: 65px;
+		}
+	}
+	
+	.menu-icon{
+	  align-content: left;
+	  width: 100px;
+	  text-align: center;
+      font-size: 30px;
+	  color: white;
+      cursor: pointer;
+	  user-select: none;
+	  background-color: lightblue;
+	  border: double;
+	}
+
+	@media only screen and (max-width:35px){
+    .menu-icon{
+	  align-content: left;
+	  width: 200px;
+	  text-align: center;
+      font-size: 25px;
+	  color: white;
+      cursor: pointer;
+	  user-select: none;
+	  background-color: lightblue;
+	  border: double;
+	 }
+	}
+	
+	/* Wrap icon + dropdown */
+	.menu-wrapper{
+	  position: relative;
+	  right: 5%;
+	}
+
+    /* HamburgerMenu */
+    .menu{
+      position: absolute; /* Dropdown menu now anchored to icon */
+	  top: 100%;       /* directly below icon */
+      right: 0;
+      width: 200px;
+      background: #333;
+      display: none;
+      flex-direction: column;
+      z-index: 999;
+    }
+	
+	@media (max-width: 600px){
+		.menu{
+			width: 200px;
+			position: absolute !important;
+		}
+	}
+
+    .menu a{
+      color: white;
+      padding: 15px;
+      text-decoration: none;
+      border-bottom: 1px solid #444;
+    }
+
+    .menu a:hover{
+      background: #555;
+    }
+
+    /* MainContent */
+    .content{
+      padding: 20px;
+    }
+
+    section{
+      display: none;
+      margin-bottom: 40px;
+    }
+
+    section.active{
+      display: block;
+    }
+
+    @media (max-width: 600px){
+      .banner h1 {
+        font-size: 25px;
+      }
+
+      .menu {
+        width: 100%;
+      }
+    }
+	
+	iframe{
+      margin-top: 10px;
+	  border: solid;
+	  border-color: grey;
+	  border-width: 5px;
+	  box-shadow: 0 0 0 8px #f7f7f7;
+      border-radius: 20px;
+    }
+
+	.slike{
+	  margin-top: 10px;
+	  border: solid;
+	  border-color: grey;
+	  border-width: 4px;
+      border-radius: 8px;
+	}
+	
+	@media only screen and (max-width: 600px){
+	 .slike{
+	  max-width: 300px;
+	  max-height: 300px;
+	  margin-top: 10px;
+	  border: solid;
+	  border-color: grey;
+	  border-width: 4px;
+      border-radius: 8px;
+	 }
+	}
+	
+	#sec1 h2{
+	  font-family: Georgia;
+	  font-style: italic;
+	}
+	
+	#sec2 h2{
+	  font-family: Georgia;
+	  font-style: italic;
+	}
+	
+	#sec3 h2{
+	  font-family: Georgia;
+	  font-style: italic;
+	}
+	
+	#prozor{
+	width: 100%;
+	height: 600px;
+	background-color: white;
+	}
+	
+	#covergallery{
+		width: 100%;
+		background: #ffffff;
+		background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(197, 230, 237, 1) 50%, rgba(255, 255, 255, 1) 100%);
+		border-top: 2px solid grey;
+		border-bottom: 2px solid grey;
+	}
+	
+	#covergallery p{
+		font-size: 18px;
+		font-style: italic;
+	}
+	
+	ul{
+	  margin-left: 15px;
+	  }
+
+	#ikona{
+		max-width: 3%;
+		height: auto;
+	}
+
+	@media only screen and (max-width: 600px){
+		#ikona{
+			max-width: 8%;
+			height: auto;
+		}
+	}
+
+	.icon_marker{
+		display: flex;
+		align-items: center; /* vertically align */
+	}
+	
+  </style>
+</head>
+
+<body>
+
+  <!-- Banner -->
+  <div class="banner" id="banner">
+    <h1>Apartmaji &nbspBelči</h1>
+	<div class="menu-wrapper">
+     <div class="menu-icon" onclick="toggleMenu()">☰</div>
+
+	 <!-- Dropdown Menu -->
+     <div class="menu" id="menu">
+      <a href="#" onclick="showSection('sec1')">Opis</a>
+      <a href="#" onclick="showSection('sec2')">Lokacija</a>
+	  <a href="#" onclick="showSection('sec3')">Kontakt</a>
+     </div>
+	</div>
+  </div>
+
+  <!-- Content -->
+  <div class="content" id="content">
+  
+    <section id="sec1" class="active">
+      <h2>Opis</h2>
+	  <br>
+      <p>Prijeten in sodobno opremljen apartma se nahaja v starem mestnem jedru Kopra, le 5 minut <br>
+	  hoje do glavne plaže, pri Mokri Mački. Primernost apartmaja je do 4 osebe in ponuja vse kar <br>
+	  potrebujete za sproščen oddih, mir in zasebnost. <br>
+	  <br>
+	  Apartma se nahaja v pritličju, vhod pa je neposredno iz ulice ter vključuje:<br>
+		<br>
+		
+		<ul>
+		<li> Kuhinjo s pečico, mikrovalovko, hladilnik z zamrzovalno skrinjo.</li>
+		<li> Spalnico z dvema ležiščema.</li>
+		<li> Dnevno sobo z raztegljivim kavčem.</li>
+		<li> Kopalnico s tuš kabino, bidejem, pralno-sušilnim strojem ter fen.</li>
+		<li> Sistem prezračevanja prostora.</li>
+		<li> Klimo ter ogrevanje.</li>
+		<li> Wi-Fi oz. možnost internetne povezave.</li>
+		</ul>
+		
+		<br>
+	Posebna prenost apartmaja je v tem, da imate hiter dostop do glavnih delov mesta, kjer so <br>
+	restavracije, bari,	trgovine, plaže in ostali kotički za sprostitev ter tudi otroška igrala. <br>
+	Glavna parkirišča v starem delu Kopra se nahajajo cca. 5-8 minut proč, ob obali, <br>
+	pri tržnici in v glavni parkirni hiši pod Belvederjem. Večeri po Koprski promenadi so <br>
+	polni dobre glasbe, kulinarike, koncertov, in čudovitih sončnih zahodov. <br>
+	<br>
+	Veselimo se vašega obiska!</p>
+	  <br>
+	  <div id="covergallery">
+	  <br>
+	  <h2>Galerija opreme:</h2>
+	  <br>
+	  <p style="background: linear-gradient(90deg,rgba(173, 226, 237, 1) 0%, rgba(143, 235, 230, 0) 40%);"><b>&nbsp - Kopalnica in dnevna soba:</b></p>
+	  <img class="slike" src="stran/s1.jpg">
+	  <img class="slike" src="stran/s5.png">
+	  <br><br>
+	  <p style="background: linear-gradient(90deg,rgba(173, 226, 237, 1) 0%, rgba(143, 235, 230, 0) 40%);"><b>&nbsp - Oprema v kopalnici:</b></p>
+	  <img class="slike" src="stran/s2.jpg">
+	  <br><br>
+	  <p style="background: linear-gradient(90deg,rgba(173, 226, 237, 1) 0%, rgba(143, 235, 230, 0) 40%);"><b>&nbsp - Spalnica:</b></p>
+	  <img class="slike" src="stran/s3.jpg">
+	  <br><br>
+	  <p style="background: linear-gradient(90deg,rgba(173, 226, 237, 1) 0%, rgba(143, 235, 230, 0) 40%);"><b>&nbsp - Kuhinja:</b></p>
+	  <img class="slike" src="stran/s4.jpg">
+	  <br><br>
+	  </div>
+	  
+    </section>
+
+    <section id="sec2">
+      <h2>Lokacija Apartmaja</h2>
+      <p>Apartma se nahaja v starem mestnem jedru, 5 min. hoje do Titovega trga.</p>
+	  <br>
+	  <p><b><i>Naslov:</i></b><br> Santorijeva Ulica 7a, 6000 Koper</p>
+		<br>
+		<div class="icon_marker">
+		<p><b><i>&nbsp -> Kje se nahajamo na zemljevidu? &nbsp <u>Glej:</u> </i></b></p>
+		<img id="ikona" src="stran/marker.png">
+		</div>
+		<br>
+		<iframe 
+		src="https://www.google.com/maps?q=45.5480,13.7271&z=14&output=embed"
+		width="100%" height="600">
+		</iframe> <!-- src="https://maps.google.com/maps?q=Koper&t=&z=13&ie=UTF8&iwloc=&output=embed" -->
+    </section>
+	
+	<section id="sec3">
+      <h2><i>Kontakt</i></h2>
+	  <p><b><u>Za dodatne informacije se obrnite na:</u></b></p>
+	  <br>
+      <p>&nbsp - E-Naslov: &nbsp <b>wesna.strand@gmail.com</b></p><br>
+	  <p>&nbsp - Telefon: &nbsp <b>064211192</b></p>
+	  <div id="prozor">
+	  </div>
+    </section>
+	
+  </div>
+
+  <script>
+	
+	const images = ["stran/kpi.jpg",
+					"stran/kpii.jpg",
+					"stran/kpiii.jpg",
+					"stran/kpiv.jpg"
+					];
+	
+	const random = images[Math.floor(Math.random() * images.length)];
+
+	const banner_img = document.getElementById("banner");
+	banner_img.style.backgroundImage = `linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(255,255,255,1) 100%), url(${random})`;
+	
+  </script>
+
+  <script>
+    function adjustLayout(){
+      const banner = document.getElementById('banner');
+      const content = document.getElementById('content');
+      const menu = document.getElementById('menu');
+    }
+
+    function toggleMenu(){
+      const menu = document.getElementById('menu');
+      menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+    }
+
+    function showSection(id){
+      document.querySelectorAll('section').forEach(sec =>
+        sec.classList.remove('active')
+      );
+
+      document.getElementById(id).classList.add('active');
+      document.getElementById('menu').style.display = 'none';
+    }
+
+    // Run on load + resize
+    window.addEventListener('load', adjustLayout);
+    window.addEventListener('resize', adjustLayout);
+	
+  </script>
+
+</body>
+</html>
