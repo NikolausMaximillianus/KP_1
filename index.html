@@ -36,7 +36,11 @@
 	  background-size: 100%;
 	  background-position: center;
 	  background-repeat: no-repeat;
-      
+	  
+	  /* Animation */
+      /* animation-name: example; */
+	  /* animation-duration: 3s; */
+	  
 	  display: flex;
       align-items: center;
       justify-content: space-between;
@@ -44,6 +48,15 @@
       color: white;
       z-index: 1000;
     }
+	
+	@keyframes fadeIn{
+		from { opacity: 0; }
+		to { opacity: 1; }
+	}
+	
+	.banner.animate {
+		animation: fadeIn 1s ease-in-out;
+	}
 	
 	@media (max-width: 600px) {
 	.banner{
@@ -53,16 +66,31 @@
 
     .banner h1{
 	  padding-left: 2%;
-	  font-size: 55px;
-	  font-family: Georgia;
-	  font-style: italic;
+	  padding-top: 0.6%;
+	  font-size: 65px;
+	  font-family: 'Merriweather', sans-serif;
 	  -webkit-text-stroke: 2px black;
-	  color: white;
+	  font-style: italic;
+	  
+	  background: linear-gradient(90deg, #FC46B3, #FBEB3F, #FC46B3);
+	  background-size: 200% auto;
+	  
+	  -webkit-background-clip: text;
+	  -webkit-text-fill-color: transparent;
+
+	  animation: gradientMove 5s linear infinite;
     }
 	
+	@keyframes gradientMove{
+		to{
+			background-position: 200% center;
+		}
+	}
+	
 	@media (max-width: 600px) {
-	.banner h1 {
-		font-size: 65px;
+	#banner h1 {
+		width: min-content;
+		font-size: 45px;
 		}
 	}
 	
@@ -236,6 +264,21 @@
 		align-items: center; /* vertically align */
 	}
 	
+	#desc_img{
+		padding: 1%;
+		width: 100%;
+		background: #ffffff;
+		background: linear-gradient(90deg,rgba(130, 200, 207, 0.49) 0%, rgba(0, 212, 255, 0) 100%);
+		
+		border-top: 2px solid grey;
+	}
+	
+	#img_mid{
+		width: 100%;
+		background: #ffffff;
+		background: linear-gradient(to top,rgba(130, 200, 207, 0.49) 0%, rgba(0, 212, 255, 0) 100%);
+	}
+	
   </style>
 </head>
 
@@ -243,7 +286,7 @@
 
   <!-- Banner -->
   <div class="banner" id="banner">
-    <h1>Apartmaji &nbspBelči</h1>
+    <h1>Apartma &nbspBelči</h1>
 	<div class="menu-wrapper">
      <div class="menu-icon" onclick="toggleMenu()">☰</div>
 
@@ -258,9 +301,15 @@
 
   <!-- Content -->
   <div class="content" id="content">
-  
     <section id="sec1" class="active">
-      <h2>Opis</h2>
+		<div id="img_mid">
+			<br>
+			<img class="slike" src="stran/banner_mid.png" style="width: 35%; border: 0px; display: block;" alt="bannertest.png">
+			<br> 
+		</div>
+	<div id="desc_img">
+	  <br>
+	  <h2>Opis</h2>
 	  <br>
       <p>Prijeten in sodobno opremljen apartma se nahaja v starem mestnem jedru Kopra, le 5 minut <br>
 	  hoje do glavne plaže, pri Mokri Mački. Primernost apartmaja je do 4 osebe in ponuja vse kar <br>
@@ -280,7 +329,7 @@
 		</ul>
 		
 		<br>
-	Posebna prenost apartmaja je v tem, da imate hiter dostop do glavnih delov mesta, kjer so <br>
+	Posebna prednost apartmaja je v tem, da imate hiter dostop do glavnih delov mesta, kjer so <br>
 	restavracije, bari,	trgovine, plaže in ostali kotički za sprostitev ter tudi otroška igrala. <br>
 	Glavna parkirišča v starem delu Kopra se nahajajo cca. 5-8 minut proč, ob obali, <br>
 	pri tržnici in v glavni parkirni hiši pod Belvederjem. Večeri po Koprski promenadi so <br>
@@ -288,6 +337,7 @@
 	<br>
 	Veselimo se vašega obiska!</p>
 	  <br>
+	  </div>
 	  <div id="covergallery">
 	  <br>
 	  <h2>Galerija opreme:</h2>
@@ -330,7 +380,6 @@
       <h2><i>Kontakt</i></h2>
 	  <p><b><u>Za dodatne informacije se obrnite na:</u></b></p>
 	  <br>
-      <p>&nbsp - E-Naslov: &nbsp <b>wesna.strand@gmail.com</b></p><br>
 	  <p>&nbsp - Telefon: &nbsp <b>064211192</b></p>
 	  <div id="prozor">
 	  </div>
@@ -346,11 +395,34 @@
 					"stran/kpiv.jpg"
 					];
 	
+	let index = 0;
+
+	const banner_img = document.getElementById("banner"); 
+
+	function updateBanner(){
+		const current = images[index];
+		banner_img.style.backgroundImage = `linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(255,255,255,1) 100%), url(${current})`;
+
+		 // restart animation
+		banner_img.classList.remove("animate");
+		void banner_img.offsetWidth; // forces reflow so animation restarts
+		banner_img.classList.add("animate");
+		
+		index = (index + 1) % images.length; // loop back to start
+		}
+
+	// run immediately
+	updateBanner();
+
+	// then rotate every 5 seconds
+	setInterval(updateBanner, 10000);
+
+	/*
 	const random = images[Math.floor(Math.random() * images.length)];
 
 	const banner_img = document.getElementById("banner");
 	banner_img.style.backgroundImage = `linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(255,255,255,1) 100%), url(${random})`;
-	
+	*/
   </script>
 
   <script>
